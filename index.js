@@ -12,9 +12,11 @@ async function getHeights() {
         for (i=0; i<n; i++) {
             heightInches.push(data.values[i]["h_in"]);
         }
+        var isFound = false;
         for (var i=0; i<n; i++) {
             for (var j=i+1; j<n; j++) {
                 if((parseInt(heightInches[i]) + parseInt(heightInches[j])) === parseInt(number)) {
+                    isFound = true;
                     let firstNameOne = data.values[i]["first_name"];
                     let lastNameOne = data.values[i]["last_name"];
                     let firstNameTwo = data.values[j]["first_name"];
@@ -25,6 +27,12 @@ async function getHeights() {
                     p.appendChild(tag);
                 }
             }
+        }
+        if (isFound == false) {
+            var tag = document.createElement("p");
+            var text = document.createTextNode('No matches found');
+            tag.appendChild(text);
+            p.appendChild(tag);
         }
         return heightInches;
     }
